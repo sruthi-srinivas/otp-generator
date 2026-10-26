@@ -13,19 +13,23 @@
         Generate OTP
     </button>
 
-    <p id="otpOutput">------</p>
+    <div id="otpOutput"></div>
 
     <script>
         let count = 0;
         let interval;
 
         function generateOTP() {
-            const otp = Math.floor(100000 + Math.random() * 900000);
+            const otp = Math.floor(1000 + Math.random() * 9000);
 
             count++;
 
             console.log("OTP " + count + ":", otp);
-            document.getElementById("otpOutput").textContent = otp;
+
+            const otpElement = document.createElement("p");
+            otpElement.textContent = "OTP " + count + ": " + otp;
+
+            document.getElementById("otpOutput").appendChild(otpElement);
 
             if (count === 5) {
                 clearInterval(interval);
