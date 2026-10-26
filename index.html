@@ -9,7 +9,8 @@
 
     <h2>OTP Generator</h2>
 
-    <h3 id="otp">Waiting for OTP...</h3>
+    <div id="otpList"></div>
+
     <button id="otpButton" onclick="startOTP()">Generate OTPs</button>
 
     <script>
@@ -19,7 +20,11 @@
         function generateOTP() {
             const otp = Math.floor(1000 + Math.random() * 9000);
 
-            document.getElementById("otp").innerText = "OTP: " + otp;
+            const otpElement = document.createElement("p");
+            otpElement.innerText = "OTP " + (count + 1) + ": " + otp;
+
+            document.getElementById("otpList").appendChild(otpElement);
+
             count++;
 
             if (count === 4) {
@@ -27,16 +32,18 @@
 
                 const button = document.getElementById("otpButton");
                 button.disabled = true;
-                button.innerText = "Completed";
+                button.innerText = "You have reached your limit";
             }
         }
 
         function startOTP() {
             const button = document.getElementById("otpButton");
             button.disabled = true;
-            count = 0;
 
-            generateOTP();
+            count = 0;
+            document.getElementById("otpList").innerHTML = "";
+
+            generateOTP(); // First OTP immediately
 
             if (count < 4) {
                 interval = setInterval(() => {
