@@ -20,12 +20,15 @@
         function generateOTP() {
             const otp = Math.floor(1000 + Math.random() * 9000);
 
-            const otpElement = document.createElement("p");
-            otpElement.innerText = "OTP " + (count + 1) + ": " + otp;
+            count++;
 
+            // Display OTP on webpage
+            const otpElement = document.createElement("p");
+            otpElement.innerText = "OTP " + count + ": " + otp;
             document.getElementById("otpList").appendChild(otpElement);
 
-            count++;
+            // Print OTP in browser console
+            console.log("OTP " + count + ": " + otp);
 
             if (count === 4) {
                 clearInterval(interval);
