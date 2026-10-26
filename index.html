@@ -7,52 +7,49 @@
 </head>
 <body>
 
-    <h2>OTP Generator</h2>
+    <h1>OTP Generator</h1>
 
-    <div id="otpList"></div>
+    <button id="generateBtn" onclick="OtpHandling()">
+        Generate OTP
+    </button>
 
-    <button id="otpButton" onclick="startOTP()">Generate OTPs</button>
+    <p id="otpOutput">------</p>
 
     <script>
         let count = 0;
         let interval;
 
         function generateOTP() {
-            const otp = Math.floor(1000 + Math.random() * 9000);
+            const otp = Math.floor(100000 + Math.random() * 900000);
 
             count++;
 
-            // Display OTP on webpage
-            const otpElement = document.createElement("p");
-            otpElement.innerText = "OTP " + count + ": " + otp;
-            document.getElementById("otpList").appendChild(otpElement);
+            console.log("OTP " + count + ":", otp);
+            document.getElementById("otpOutput").textContent = otp;
 
-            // Print OTP in browser console
-            console.log("OTP " + count + ": " + otp);
-
-            if (count === 4) {
+            if (count === 5) {
                 clearInterval(interval);
 
-                const button = document.getElementById("otpButton");
+                const button = document.getElementById("generateBtn");
                 button.disabled = true;
-                button.innerText = "You have reached your limit";
+                button.textContent = "You have reached your limit";
+
+                console.log("You have reached your limit!");
             }
         }
 
-        function startOTP() {
-            const button = document.getElementById("otpButton");
-            button.disabled = true;
+        function OtpHandling() {
+            const button = document.getElementById("generateBtn");
 
-            count = 0;
-            document.getElementById("otpList").innerHTML = "";
+            if (count > 0) return;
+
+            button.disabled = true;
 
             generateOTP(); // First OTP immediately
 
-            if (count < 4) {
-                interval = setInterval(() => {
-                    generateOTP();
-                }, 3000);
-            }
+            interval = setInterval(() => {
+                generateOTP(); // Next OTP every 3 seconds
+            }, 3000);
         }
     </script>
 
